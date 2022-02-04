@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.IntegrationTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "src\WebUI\WebUI.csproj", "{22454EE9-16B3-4B7A-8352-37E59B858155}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIBlazor", "..\UIBlazor\UIBlazor.csproj", "{F0E30CF8-8A1F-4D78-B6B9-4870B6AC4BC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIBlazor", "..\UIBlazor\UIBlazor.csproj", "{F0E30CF8-8A1F-4D78-B6B9-4870B6AC4BC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
