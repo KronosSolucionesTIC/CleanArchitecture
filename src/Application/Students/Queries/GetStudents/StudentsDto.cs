@@ -1,11 +1,11 @@
 ﻿using CleanArchitecth.Application.Common.Mappings;
 using CleanArchitecth.Domain.Entities;
 
-namespace CleanArchitecth.Application.TodoLists.Queries.GetTodos;
+namespace CleanArchitecth.Application.Students.Queries.GetStudents;
 
-public class TodoListDto : IMapFrom<TodoList>
+public class StudentsDto : IMapFrom<Student>
 {
-    public TodoListDto()
+    public StudentsDto()
     {
         Items = new List<TodoItemDto>();
     }
@@ -13,8 +13,6 @@ public class TodoListDto : IMapFrom<TodoList>
     public int Id { get; set; }
 
     public string? Title { get; set; }
-
-    public string? Colour { get; set; }
 
     public IList<TodoItemDto> Items { get; set; }
 }

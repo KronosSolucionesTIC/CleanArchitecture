@@ -2,13 +2,13 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecth.Application.TodoLists.Commands.CreateTodoList;
+namespace CleanArchitecth.Application.Students.Commands.CreateStudent;
 
-public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
+public class CreateStudentCommandValidator : AbstractValidator<CreateStudentCommand>
 {
     private readonly IApplicationDbContext _context;
 
-    public CreateTodoListCommandValidator(IApplicationDbContext context)
+    public CreateStudentCommandValidator(IApplicationDbContext context)
     {
         _context = context;
 
@@ -20,7 +20,7 @@ public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCo
 
     public async Task<bool> BeUniqueTitle(string title, CancellationToken cancellationToken)
     {
-        return await _context.TodoLists
+        return await _context.Students
             .AllAsync(l => l.Title != title, cancellationToken);
     }
 }

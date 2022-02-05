@@ -2,13 +2,13 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecth.Application.TodoLists.Commands.UpdateTodoList;
+namespace CleanArchitecth.Application.Students.Commands.UpdateStudent;
 
-public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCommand>
+public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentCommand>
 {
     private readonly IApplicationDbContext _context;
 
-    public UpdateTodoListCommandValidator(IApplicationDbContext context)
+    public UpdateStudentCommandValidator(IApplicationDbContext context)
     {
         _context = context;
 
@@ -18,9 +18,9 @@ public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCo
             .MustAsync(BeUniqueTitle).WithMessage("The specified title already exists.");
     }
 
-    public async Task<bool> BeUniqueTitle(UpdateTodoListCommand model, string title, CancellationToken cancellationToken)
+    public async Task<bool> BeUniqueTitle(UpdateStudentCommand model, string title, CancellationToken cancellationToken)
     {
-        return await _context.TodoLists
+        return await _context.Students
             .Where(l => l.Id != model.Id)
             .AllAsync(l => l.Title != title, cancellationToken);
     }

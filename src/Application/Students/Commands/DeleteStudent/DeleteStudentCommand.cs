@@ -4,34 +4,34 @@ using CleanArchitecth.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecth.Application.TodoLists.Commands.DeleteTodoList;
+namespace CleanArchitecth.Application.Students.Commands.DeleteStudent;
 
-public class DeleteTodoListCommand : IRequest
+public class DeleteStudentCommand : IRequest
 {
     public int Id { get; set; }
 }
 
-public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListCommand>
+public class DeleteStudentCommandHandler : IRequestHandler<DeleteStudentCommand>
 {
     private readonly IApplicationDbContext _context;
 
-    public DeleteTodoListCommandHandler(IApplicationDbContext context)
+    public DeleteStudentCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<Unit> Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoLists
+        var entity = await _context.Students
             .Where(l => l.Id == request.Id)
             .SingleOrDefaultAsync(cancellationToken);
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(TodoList), request.Id);
+            throw new NotFoundException(nameof(Student), request.Id);
         }
 
-        _context.TodoLists.Remove(entity);
+        _context.Students.Remove(entity);
 
         await _context.SaveChangesAsync(cancellationToken);
 

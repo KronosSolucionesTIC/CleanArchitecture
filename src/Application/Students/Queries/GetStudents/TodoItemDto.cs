@@ -2,7 +2,7 @@
 using CleanArchitecth.Application.Common.Mappings;
 using CleanArchitecth.Domain.Entities;
 
-namespace CleanArchitecth.Application.TodoLists.Queries.GetTodos;
+namespace CleanArchitecth.Application.Students.Queries.GetStudents;
 
 public class TodoItemDto : IMapFrom<TodoItem>
 {
