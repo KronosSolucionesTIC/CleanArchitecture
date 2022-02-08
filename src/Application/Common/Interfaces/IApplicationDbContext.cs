@@ -8,8 +8,10 @@ public interface IApplicationDbContext
     DbSet<TodoList> TodoLists { get; }
 
     DbSet<TodoItem> TodoItems { get; }
-
-    DbSet<Student> Students { get; }
+    /// <summary>
+    /// DbSet para entidad producto
+    /// </summary>
+    DbSet<Product> Products { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
