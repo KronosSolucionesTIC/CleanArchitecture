@@ -1,10 +1,10 @@
 ﻿using CleanArchitecth.Application.Products.Queries.GetProducts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecth.WebUI.Controllers;
 
-[Authorize]
 public class ProductController : ApiControllerBase
 {
     /// <summary>
@@ -12,6 +12,7 @@ public class ProductController : ApiControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [EnableCors("DevCorsPolicy")]
     public async Task<ActionResult<ProductVm>> Get()
     {
         return await Mediator.Send(new GetProductQuery());

@@ -2,5 +2,5 @@
 
 public class ProductVm
 {
-    public IList<ProductDto> Lists { get; set; } = new List<ProductDto>();
+    public IList<ProductDto> ListProducts { get; set; } = new List<ProductDto>();
 }

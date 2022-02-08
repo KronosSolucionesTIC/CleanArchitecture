@@ -714,7 +714,7 @@ export class WeatherForecastClient implements IWeatherForecastClient {
 }
 
 export class ProductVm implements IProductVm {
-    lists?: ProductDto[];
+    listProducts?: ProductDto[];
 
     constructor(data?: IProductVm) {
         if (data) {
@@ -727,10 +727,10 @@ export class ProductVm implements IProductVm {
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data["lists"])) {
-                this.lists = [] as any;
-                for (let item of _data["lists"])
-                    this.lists!.push(ProductDto.fromJS(item));
+            if (Array.isArray(_data["listProducts"])) {
+                this.listProducts = [] as any;
+                for (let item of _data["listProducts"])
+                    this.listProducts!.push(ProductDto.fromJS(item));
             }
         }
     }
@@ -744,17 +744,17 @@ export class ProductVm implements IProductVm {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.lists)) {
-            data["lists"] = [];
-            for (let item of this.lists)
-                data["lists"].push(item.toJSON());
+        if (Array.isArray(this.listProducts)) {
+            data["listProducts"] = [];
+            for (let item of this.listProducts)
+                data["listProducts"].push(item.toJSON());
         }
         return data; 
     }
 }
 
 export interface IProductVm {
-    lists?: ProductDto[];
+    listProducts?: ProductDto[];
 }
 
 export class ProductDto implements IProductDto {

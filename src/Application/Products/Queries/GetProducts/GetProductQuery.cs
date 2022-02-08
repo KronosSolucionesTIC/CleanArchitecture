@@ -23,13 +23,12 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductVm
 
     public async Task<ProductVm> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-
         return new ProductVm
         {
-            Lists = await _context.Products
+            ListProducts = await _context.Products
                 .AsNoTracking()
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
-                .OrderBy(t => t.Name)
+                .OrderBy(x => x.Name)
                 .ToListAsync(cancellationToken)
         };
     }

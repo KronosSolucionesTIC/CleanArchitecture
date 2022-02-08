@@ -23,12 +23,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/TodoItems": {
@@ -469,7 +464,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "lists": {
+          "listProducts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ProductDto"
