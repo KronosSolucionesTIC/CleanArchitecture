@@ -868,6 +868,10 @@ export interface IProductDto {
 
 export class CreateProductCommand implements ICreateProductCommand {
     name?: string | undefined;
+    description?: string | undefined;
+    image?: string | undefined;
+    code?: string | undefined;
+    price?: number | undefined;
 
     constructor(data?: ICreateProductCommand) {
         if (data) {
@@ -881,6 +885,10 @@ export class CreateProductCommand implements ICreateProductCommand {
     init(_data?: any) {
         if (_data) {
             this.name = _data["name"];
+            this.description = _data["description"];
+            this.image = _data["image"];
+            this.code = _data["code"];
+            this.price = _data["price"];
         }
     }
 
@@ -894,12 +902,20 @@ export class CreateProductCommand implements ICreateProductCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
+        data["description"] = this.description;
+        data["image"] = this.image;
+        data["code"] = this.code;
+        data["price"] = this.price;
         return data; 
     }
 }
 
 export interface ICreateProductCommand {
     name?: string | undefined;
+    description?: string | undefined;
+    image?: string | undefined;
+    code?: string | undefined;
+    price?: number | undefined;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
