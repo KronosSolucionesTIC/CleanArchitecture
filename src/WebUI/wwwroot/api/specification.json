@@ -480,12 +480,21 @@
             "type": "integer",
             "format": "int32"
           },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
           "name": {
             "type": "string",
             "nullable": true
           },
           "description": {
             "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "image": {

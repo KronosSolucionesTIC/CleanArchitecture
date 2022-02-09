@@ -759,8 +759,10 @@ export interface IProductVm {
 
 export class ProductDto implements IProductDto {
     id?: number;
+    code?: string | undefined;
     name?: string | undefined;
     description?: string | undefined;
+    price?: number | undefined;
     image?: string | undefined;
 
     constructor(data?: IProductDto) {
@@ -775,8 +777,10 @@ export class ProductDto implements IProductDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.code = _data["code"];
             this.name = _data["name"];
             this.description = _data["description"];
+            this.price = _data["price"];
             this.image = _data["image"];
         }
     }
@@ -791,8 +795,10 @@ export class ProductDto implements IProductDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["code"] = this.code;
         data["name"] = this.name;
         data["description"] = this.description;
+        data["price"] = this.price;
         data["image"] = this.image;
         return data; 
     }
@@ -800,8 +806,10 @@ export class ProductDto implements IProductDto {
 
 export interface IProductDto {
     id?: number;
+    code?: string | undefined;
     name?: string | undefined;
     description?: string | undefined;
+    price?: number | undefined;
     image?: string | undefined;
 }
 
