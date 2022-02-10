@@ -811,7 +811,7 @@ export interface IProductVm {
 }
 
 export class ProductDto implements IProductDto {
-    id?: number;
+    id!: number;
     code?: string | undefined;
     name?: string | undefined;
     description?: string | undefined;
@@ -858,7 +858,7 @@ export class ProductDto implements IProductDto {
 }
 
 export interface IProductDto {
-    id?: number;
+    id: number;
     code?: string | undefined;
     name?: string | undefined;
     description?: string | undefined;
