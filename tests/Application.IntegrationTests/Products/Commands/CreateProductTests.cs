@@ -3,6 +3,7 @@ using CleanArchitecth.Application.Products.Commands.CreateProduct;
 using CleanArchitecth.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
+using Serilog;
 
 namespace CleanArchitecth.Application.IntegrationTests.Products.Commands;
 
@@ -21,20 +22,30 @@ public class CreateProductTests : TestBase
     [Test]
     public async Task ShouldCreateProduct()
     {
-        var command = new CreateProductCommand
+        Log.Debug($"Inicia CreateProductTest/ShouldCreateProduct");
+        try
         {
-            Name = "Tasks",
-            Image = "123",
-            Code = "123",
-            Price = 1900,
-            Description = "prueba"
-        };
+            var command = new CreateProductCommand
+            {
+                Name = "Tasks",
+                Image = "123",
+                Code = "123",
+                Price = 1900,
+                Description = "prueba"
+            };
 
-        var id = await SendAsync(command);
+            var id = await SendAsync(command);
 
-        var list = await FindAsync<Product>(id);
+            var list = await FindAsync<Product>(id);
 
-        list.Should().NotBeNull();
-        list!.Name.Should().Be(command.Name);
+            list.Should().NotBeNull();
+            list!.Name.Should().Be(command.Name);
+        }
+        catch (Exception ex)
+        {
+            Log.Debug($"Error CreateProductTest/ShouldCreateProduct: {ex.Message}-{ex.InnerException}");
+            throw;
+        }
+        Log.Debug($"Termina CreateProductTest/ShouldCreateProduct");
     }
 }
