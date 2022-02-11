@@ -21,6 +21,12 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductVm
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Query para obtener el producto
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<ProductVm> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         return new ProductVm

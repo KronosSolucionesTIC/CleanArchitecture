@@ -21,6 +21,12 @@ public class GetCompraQueryHandler : IRequestHandler<GetCompraQuery, ComprasVm>
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Query para obtener la compra
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<ComprasVm> Handle(GetCompraQuery request, CancellationToken cancellationToken)
     {
         return new ComprasVm

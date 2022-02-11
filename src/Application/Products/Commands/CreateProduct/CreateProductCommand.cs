@@ -6,14 +6,25 @@ namespace CleanArchitecth.Application.Products.Commands.CreateProduct;
 
 public class CreateProductCommand : IRequest<int>
 {
+    /// <summary>
+    /// Name del producto
+    /// </summary>
     public string? Name { get; set; }
-
+    /// <summary>
+    /// Descripcion del producto
+    /// </summary>
     public string? Description { get; set; }
-
+    /// <summary>
+    /// Imagen del producto
+    /// </summary>
     public string? Image { get; set; }
-
+    /// <summary>
+    /// Codigo del producto
+    /// </summary>
     public string? Code { get; set; }
-
+    /// <summary>
+    /// Precio del producto
+    /// </summary>
     public int? Price { get; set; }
 }
 
@@ -26,6 +37,12 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _context = context;
     }
 
+    /// <summary>
+    /// Command para la creacion del producto
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var entity = new Product();

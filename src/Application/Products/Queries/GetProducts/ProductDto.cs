@@ -3,7 +3,9 @@ using CleanArchitecth.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace CleanArchitecth.Application.Products.Queries.GetProducts;
-
+/// <summary>
+/// Dto del producto
+/// </summary>
 public class ProductDto: IMapFrom<Product>
 {
     /// <summary>

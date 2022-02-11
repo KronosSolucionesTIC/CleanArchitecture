@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecth.WebUI.Controllers;
-
+/// <summary>
+/// Controller para producto
+/// </summary>
 public class ProductController : ApiControllerBase
 {
     /// <summary>

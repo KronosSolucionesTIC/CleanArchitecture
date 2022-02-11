@@ -3,7 +3,9 @@ using CleanArchitecth.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace CleanArchitecth.Application.Usuarios.Queries.GetUsuarios;
-
+/// <summary>
+/// Dto del usuario
+/// </summary>
 public class UsuarioDto : IMapFrom<Usuario>
 {
     /// <summary>

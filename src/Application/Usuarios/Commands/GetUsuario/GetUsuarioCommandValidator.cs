@@ -8,6 +8,10 @@ public class GetUsuarioCommandValidator : AbstractValidator<GetUsuarioCommand>
 {
     private readonly IApplicationDbContext _context;
 
+    /// <summary>
+    /// Validator para obtener usuario
+    /// </summary>
+    /// <param name="context"></param>
     public GetUsuarioCommandValidator(IApplicationDbContext context)
     {
         _context = context;

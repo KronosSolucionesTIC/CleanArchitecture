@@ -3,7 +3,9 @@ using CleanArchitecth.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace CleanArchitecth.Application.Compras.Queries.GetCompras;
-
+/// <summary>
+/// Dto de compras
+/// </summary>
 public class ComprasDto : IMapFrom<Compra>
 {
     /// <summary>

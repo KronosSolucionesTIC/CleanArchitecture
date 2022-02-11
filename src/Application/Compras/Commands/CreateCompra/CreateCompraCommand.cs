@@ -6,14 +6,25 @@ namespace CleanArchitecth.Application.Compras.Commands.CreateCompra;
 
 public class CreateCompraCommand : IRequest<int>
 {
+    /// <summary>
+    /// Id de la compra
+    /// </summary>
     public int? Id { get; set; }
-
+    /// <summary>
+    /// Id del producto
+    /// </summary>
     public int? IdProduct { get; set; }
-
+    /// <summary>
+    /// Cantidad
+    /// </summary>
     public int? Cantidad { get; set; }
-
+    /// <summary>
+    /// Precio unitario
+    /// </summary>
     public int? PrecioUnitario { get; set; }
-
+    /// <summary>
+    /// Precio total
+    /// </summary>
     public int? PrecioTotal { get; set; }
 }
 
@@ -26,6 +37,12 @@ public class CreateCompraCommandHandler : IRequestHandler<CreateCompraCommand, i
         _context = context;
     }
 
+    /// <summary>
+    /// Command para la creacion de la compra
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<int> Handle(CreateCompraCommand request, CancellationToken cancellationToken)
     {
         var entity = new Compra();

@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecth.WebUI.Controllers;
-
+/// <summary>
+/// Controller para compra
+/// </summary>
 public class CompraController : ApiControllerBase
 {
     /// <summary>
-    /// Servicio API para obtener producto
+    /// Servicio API para obtener compra
     /// </summary>
     /// <returns></returns>
     [HttpGet]

@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecth.WebUI.Controllers;
-
+/// <summary>
+/// Controller para usuario
+/// </summary>
 public class UsuarioController : ApiControllerBase
 {
     ///// <summary>
-    ///// Servicio API para crear producto
+    ///// Servicio API para obtener login
     ///// </summary>
     ///// <param name="command"></param>
     ///// <returns></returns>
