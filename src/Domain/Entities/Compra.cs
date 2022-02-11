@@ -25,4 +25,8 @@ public class Compra
     /// Precio total
     /// </summary>
     public int? PrecioTotal { get; set; }
+    /// <summary>
+    /// Nombre del producto
+    /// </summary>
+    public string? Name { get; set; }
 }

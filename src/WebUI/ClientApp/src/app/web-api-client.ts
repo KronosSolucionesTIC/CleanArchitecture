@@ -991,6 +991,7 @@ export class CreateCompraCommand implements ICreateCompraCommand {
     cantidad?: number | undefined;
     precioUnitario?: number | undefined;
     precioTotal?: number | undefined;
+    name?: string | undefined;
 
     constructor(data?: ICreateCompraCommand) {
         if (data) {
@@ -1008,6 +1009,7 @@ export class CreateCompraCommand implements ICreateCompraCommand {
             this.cantidad = _data["cantidad"];
             this.precioUnitario = _data["precioUnitario"];
             this.precioTotal = _data["precioTotal"];
+            this.name = _data["name"];
         }
     }
 
@@ -1025,6 +1027,7 @@ export class CreateCompraCommand implements ICreateCompraCommand {
         data["cantidad"] = this.cantidad;
         data["precioUnitario"] = this.precioUnitario;
         data["precioTotal"] = this.precioTotal;
+        data["name"] = this.name;
         return data; 
     }
 }
@@ -1035,6 +1038,7 @@ export interface ICreateCompraCommand {
     cantidad?: number | undefined;
     precioUnitario?: number | undefined;
     precioTotal?: number | undefined;
+    name?: string | undefined;
 }
 
 export class ProductVm implements IProductVm {

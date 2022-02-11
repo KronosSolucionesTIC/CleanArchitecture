@@ -27,6 +27,10 @@ public class CreateCompraCommand : IRequest<int>
     /// Precio total
     /// </summary>
     public int? PrecioTotal { get; set; }
+    /// <summary>
+    /// Name
+    /// </summary>
+    public string? Name { get; set; }
 }
 
 public class CreateCompraCommandHandler : IRequestHandler<CreateCompraCommand, int>
@@ -50,6 +54,7 @@ public class CreateCompraCommandHandler : IRequestHandler<CreateCompraCommand, i
         try
         {
             var entity = new Compra();
+            entity.Name = request.Name;
             entity.IdProduct = request.IdProduct;
             entity.Cantidad = request.Cantidad;
             entity.PrecioUnitario = request.PrecioUnitario;
