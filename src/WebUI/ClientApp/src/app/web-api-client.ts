@@ -1082,7 +1082,7 @@ export interface IProductVm {
 }
 
 export class ProductDto implements IProductDto {
-    id!: number;
+    id?: number;
     code!: string;
     name!: string;
     description!: string;
@@ -1132,7 +1132,7 @@ export class ProductDto implements IProductDto {
 }
 
 export interface IProductDto {
-    id: number;
+    id?: number;
     code: string;
     name: string;
     description: string;

@@ -11,8 +11,6 @@ public class ProductDto: IMapFrom<Product>
     /// <summary>
     /// Id del producto
     /// </summary>
-    [Required]
-    [StringLength(200, ErrorMessage = "El nombre no puede ser mayor a 200 caracteres.")]
     public int Id { get; set; }
     /// <summary>
     /// Codigo del producto
@@ -22,7 +20,8 @@ public class ProductDto: IMapFrom<Product>
     /// <summary>
     /// Nombre del producto
     /// </summary>
-    [Required] 
+    [Required]
+    [StringLength(200, ErrorMessage = "El nombre no puede ser mayor a 200 caracteres.")]
     public string? Name { get; set; }
     /// <summary>
     /// Descripción del producto
