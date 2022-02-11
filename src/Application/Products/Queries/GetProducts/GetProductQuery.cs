@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using CleanArchitecth.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace CleanArchitecth.Application.Products.Queries.GetProducts;
 
@@ -29,14 +30,24 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductVm
     /// <returns></returns>
     public async Task<ProductVm> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        return new ProductVm
+        Log.Debug($"Inicia Product/GetProductQuery");
+        try
         {
-            ListProducts = await _context.Products
-                .AsNoTracking()
-                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
-                .OrderBy(x => x.Name)
-                .ToListAsync(cancellationToken)
-        };
+            return new ProductVm
+            {
+                ListProducts = await _context.Products
+                    .AsNoTracking()
+                    .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                    .OrderBy(x => x.Name)
+                    .ToListAsync(cancellationToken)
+            };
+        }
+        catch (Exception ex)
+        {
+            Log.Debug($"Error Product/GetProductQuery: {ex.Message}-{ex.InnerException}");
+            throw;
+        }
+        Log.Debug($"Termina Product/GetProductQuery");
     }
 }
 

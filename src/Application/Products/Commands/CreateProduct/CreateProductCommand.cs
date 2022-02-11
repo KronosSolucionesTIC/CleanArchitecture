@@ -1,6 +1,7 @@
 ﻿using CleanArchitecth.Application.Common.Interfaces;
 using CleanArchitecth.Domain.Entities;
 using MediatR;
+using Serilog;
 
 namespace CleanArchitecth.Application.Products.Commands.CreateProduct;
 
@@ -45,15 +46,25 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     /// <returns></returns>
     public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var entity = new Product();
-        entity.Name = request.Name;
-        entity.Description = request.Description;
-        entity.Image = request.Image;
-        entity.Code = request.Code;
-        entity.Price = request.Price;
-        _context.Products.Add(entity);
-        await _context.SaveChangesAsync(cancellationToken);
-        return entity.Id;
+        Log.Debug($"Inicia Products/CreateProductCommand");
+        try
+        {
+            var entity = new Product();
+            entity.Name = request.Name;
+            entity.Description = request.Description;
+            entity.Image = request.Image;
+            entity.Code = request.Code;
+            entity.Price = request.Price;
+            _context.Products.Add(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+            Log.Debug($"Termina Products/CreateProductCommand");
+            return entity.Id;
+        }
+        catch (Exception ex)
+        {
+            Log.Debug($"Error Products/CreateProductCommand: {ex.Message}-{ex.InnerException}");
+            throw;
+        }
     }
 }
 

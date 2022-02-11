@@ -1,6 +1,7 @@
 ﻿using CleanArchitecth.Application.Common.Interfaces;
 using CleanArchitecth.Domain.Entities;
 using MediatR;
+using Serilog;
 
 namespace CleanArchitecth.Application.Compras.Commands.CreateCompra;
 
@@ -45,13 +46,23 @@ public class CreateCompraCommandHandler : IRequestHandler<CreateCompraCommand, i
     /// <returns></returns>
     public async Task<int> Handle(CreateCompraCommand request, CancellationToken cancellationToken)
     {
-        var entity = new Compra();
-        entity.IdProduct = request.IdProduct;
-        entity.Cantidad = request.Cantidad;
-        entity.PrecioUnitario = request.PrecioUnitario;
-        entity.PrecioTotal = request.PrecioTotal;
-        _context.Compras.Add(entity);
-        await _context.SaveChangesAsync(cancellationToken);
-        return entity.Id;
+        Log.Debug($"Inicia Compras/CreateCompraCommand");
+        try
+        {
+            var entity = new Compra();
+            entity.IdProduct = request.IdProduct;
+            entity.Cantidad = request.Cantidad;
+            entity.PrecioUnitario = request.PrecioUnitario;
+            entity.PrecioTotal = request.PrecioTotal;
+            _context.Compras.Add(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+            Log.Debug($"Termina Compras/CreateCompraCommand");
+            return entity.Id;
+        }
+        catch (Exception ex)
+        {
+            Log.Debug($"Error Compras/CreateCompraCommand: {ex.Message}-{ex.InnerException}");
+            throw;
+        }
     }
 }
