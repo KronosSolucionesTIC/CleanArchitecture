@@ -32,9 +32,19 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
     /// <summary>
+    /// Propiedad DbSet para usuario
+    /// </summary>
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
+
+    /// <summary>
     /// Propiedad DbSet para producto
     /// </summary>
     public DbSet<Product> Products => Set<Product>();
+
+    /// <summary>
+    /// Propiedad DbSet para compra
+    /// </summary>
+    public DbSet<Compra> Compras => Set<Compra>();
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {

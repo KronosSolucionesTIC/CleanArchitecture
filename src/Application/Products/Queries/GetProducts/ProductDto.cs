@@ -15,21 +15,31 @@ public class ProductDto: IMapFrom<Product>
     /// <summary>
     /// Codigo del producto
     /// </summary>
+    [Required]
     public string? Code { get; set; }
     /// <summary>
     /// Nombre del producto
     /// </summary>
+    [Required] 
     public string? Name { get; set; }
     /// <summary>
     /// Descripción del producto
     /// </summary>
+    [Required] 
     public string? Description { get; set; }
     /// <summary>
     /// Precio del producto
     /// </summary>
+    [Required] 
     public int? Price { get; set; }
     /// <summary>
     /// Imagen del producto
     /// </summary>
+    [Required] 
     public string? Image { get; set; }
+    /// <summary>
+    /// Cantidad
+    /// </summary>
+    [Required]
+    public int Amount { get; set; } = 0;
 }

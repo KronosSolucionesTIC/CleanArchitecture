@@ -12,6 +12,14 @@ public interface IApplicationDbContext
     /// DbSet para entidad producto
     /// </summary>
     DbSet<Product> Products { get; }
+    /// <summary>
+    /// DbSet para entidad usuario
+    /// </summary>
+    DbSet<Usuario> Usuarios { get; }
+    /// <summary>
+    /// DbSet para entidad compras
+    /// </summary>
+    DbSet<Compra> Compras { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

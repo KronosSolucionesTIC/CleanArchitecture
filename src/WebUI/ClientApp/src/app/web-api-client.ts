@@ -133,6 +133,76 @@ export class ProductClient implements IProductClient {
     }
 }
 
+export interface ICompraClient {
+    create(command: CreateCompraCommand): Observable<number>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CompraClient implements ICompraClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    create(command: CreateCompraCommand): Observable<number> {
+        let url_ = this.baseUrl + "/api/Compra";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(<any>response_);
+                } catch (e) {
+                    return <Observable<number>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<number>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<number> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<number>(<any>null);
+    }
+}
+
 export interface ITodoItemsClient {
     getTodoItemsWithPagination(listId: number | undefined, pageNumber: number | undefined, pageSize: number | undefined): Observable<PaginatedListOfTodoItemBriefDto>;
     create(command: CreateTodoItemCommand): Observable<number>;
@@ -812,11 +882,12 @@ export interface IProductVm {
 
 export class ProductDto implements IProductDto {
     id!: number;
-    code?: string | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
-    price?: number | undefined;
-    image?: string | undefined;
+    code!: string;
+    name!: string;
+    description!: string;
+    price!: number;
+    image!: string;
+    amount!: number;
 
     constructor(data?: IProductDto) {
         if (data) {
@@ -835,6 +906,7 @@ export class ProductDto implements IProductDto {
             this.description = _data["description"];
             this.price = _data["price"];
             this.image = _data["image"];
+            this.amount = _data["amount"];
         }
     }
 
@@ -853,17 +925,19 @@ export class ProductDto implements IProductDto {
         data["description"] = this.description;
         data["price"] = this.price;
         data["image"] = this.image;
+        data["amount"] = this.amount;
         return data; 
     }
 }
 
 export interface IProductDto {
     id: number;
-    code?: string | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
-    price?: number | undefined;
-    image?: string | undefined;
+    code: string;
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    amount: number;
 }
 
 export class CreateProductCommand implements ICreateProductCommand {
@@ -916,6 +990,58 @@ export interface ICreateProductCommand {
     image?: string | undefined;
     code?: string | undefined;
     price?: number | undefined;
+}
+
+export class CreateCompraCommand implements ICreateCompraCommand {
+    id?: number | undefined;
+    idProduct?: number | undefined;
+    cantidad?: number | undefined;
+    precioUnitario?: number | undefined;
+    precioTotal?: number | undefined;
+
+    constructor(data?: ICreateCompraCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.idProduct = _data["idProduct"];
+            this.cantidad = _data["cantidad"];
+            this.precioUnitario = _data["precioUnitario"];
+            this.precioTotal = _data["precioTotal"];
+        }
+    }
+
+    static fromJS(data: any): CreateCompraCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateCompraCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["idProduct"] = this.idProduct;
+        data["cantidad"] = this.cantidad;
+        data["precioUnitario"] = this.precioUnitario;
+        data["precioTotal"] = this.precioTotal;
+        return data; 
+    }
+}
+
+export interface ICreateCompraCommand {
+    id?: number | undefined;
+    idProduct?: number | undefined;
+    cantidad?: number | undefined;
+    precioUnitario?: number | undefined;
+    precioTotal?: number | undefined;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
