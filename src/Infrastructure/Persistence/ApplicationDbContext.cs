@@ -46,6 +46,11 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     /// </summary>
     public DbSet<Compra> Compras => Set<Compra>();
 
+    /// <summary>
+    /// Propiedad DbSet para cliente
+    /// </summary>
+    public DbSet<Cliente> Clientes => Set<Cliente>();
+
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entry in ChangeTracker.Entries<AuditableEntity>())

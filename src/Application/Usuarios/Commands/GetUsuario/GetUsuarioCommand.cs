@@ -1,4 +1,5 @@
-﻿using CleanArchitecth.Application.Common.Interfaces;
+﻿using CleanArchitecth.Application.Common.Exceptions;
+using CleanArchitecth.Application.Common.Interfaces;
 using CleanArchitecth.Domain.Entities;
 using MediatR;
 using Serilog;
@@ -10,12 +11,21 @@ public class GetUsuarioCommand : IRequest<int>
     /// <summary>
     /// Nombre del usuario
     /// </summary>
+    public int Id { get; set; }
+    /// <summary>
+    /// Nombre del usuario
+    /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
     /// Pass del usuario
     /// </summary>
     public string? Pass { get; set; }
+
+    /// <summary>
+    /// Rol del usuario
+    /// </summary>
+    public int? Role { get; set; }
 }
 
 public class GetUsuarioCommandHandler : IRequestHandler<GetUsuarioCommand, int>
@@ -38,12 +48,17 @@ public class GetUsuarioCommandHandler : IRequestHandler<GetUsuarioCommand, int>
         Log.Debug($"Inicia Usuarios/GetUsuarioCommand");
         try
         {
-            var entity = new Usuario();
-            entity.Name = request.Name;
-            entity.Pass = request.Pass;
-            _context.Usuarios.Add(entity);
+            var entity = await _context.Usuarios
+                .FindAsync(new object[] { request.Id }, cancellationToken);
+
+            if (entity == null)
+            {
+                throw new NotFoundException(nameof(Usuario), request.Name);
+            }
+
             await _context.SaveChangesAsync(cancellationToken);
-            return entity.Id;
+
+            return entity.Role;
         }
         catch (Exception ex)
         {
@@ -53,4 +68,6 @@ public class GetUsuarioCommandHandler : IRequestHandler<GetUsuarioCommand, int>
         Log.Debug($"Termina Usuarios/GetUsuarioCommand");
     }
 }
+
+
 

@@ -50,4 +50,3 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductVm
         Log.Debug($"Termina Product/GetProductQuery");
     }
 }
-

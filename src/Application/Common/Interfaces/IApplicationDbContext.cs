@@ -20,6 +20,10 @@ public interface IApplicationDbContext
     /// DbSet para entidad compras
     /// </summary>
     DbSet<Compra> Compras { get; }
+    /// <summary>
+    /// DbSet para entidad cliente
+    /// </summary>
+    DbSet<Cliente> Clientes { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

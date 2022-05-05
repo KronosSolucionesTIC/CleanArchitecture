@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanArchitecth.Infrastructure.Persistence.Configurations;
 
-public class ProductConfiguration : IEntityTypeConfiguration<Product>
+public class ClienteConfiguration : IEntityTypeConfiguration<Cliente>
 {
-    public void Configure(EntityTypeBuilder<Product> builder)
+    public void Configure(EntityTypeBuilder<Cliente> builder)
     {
-        builder.Property(t => t.Name)
+        builder.Property(t => t.Nombres)
             .HasMaxLength(200)
             .IsRequired();
     }

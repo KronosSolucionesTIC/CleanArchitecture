@@ -31,11 +31,18 @@ public class GetCompraQueryHandler : IRequestHandler<GetCompraQuery, ComprasVm>
     {
         return new ComprasVm
         {
-            ListCompras = await _context.Compras
-                .AsNoTracking()
-                .ProjectTo<ComprasDto>(_mapper.ConfigurationProvider)
-                .OrderBy(x => x.PrecioTotal)
-                .ToListAsync(cancellationToken)
-    };
+            //ListCompras = await _context.Compras
+            //    .AsNoTracking()
+            //    .ProjectTo<ComprasDto>(_mapper.ConfigurationProvider)
+            //    .OrderBy(x => x.PrecioTotal)
+            //    .ToListAsync(cancellationToken)
+
+            ListCompras = _context.Compras
+                  .AsNoTracking()
+                  .ProjectTo<ComprasDto>(_mapper.ConfigurationProvider)
+                  .GroupBy(x => x.IdProduct)
+                  .Select(x => new ComprasDto { IdProduct = x.Key, PrecioTotal = x.Sum(y => y.Cantidad) }).ToList()
+        };
+            
     }
 }
